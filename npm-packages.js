@@ -35,7 +35,7 @@ packages = function(user) {
     var count, rows;
     rows = $('#package .row');
     count = rows.length;
-    if (err || (count === 1 && request === 1)) {
+    if (err || (count === 1 && requests === 1)) {
       return deferred.reject(err);
     } else {
       if (count > 1) {

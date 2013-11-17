@@ -26,7 +26,7 @@ packages = (user) ->
 		rows = $ '#package .row'
 		count = rows.length
 
-		if err or (count is 1 and request is 1)
+		if err or (count is 1 and requests is 1)
 			deferred.reject err
 
 		else
