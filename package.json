@@ -33,6 +33,7 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "scrape": "~0.2.3"
+    "scrape": "~0.2.3",
+    "when": "~2.6.0"
   }
 }
