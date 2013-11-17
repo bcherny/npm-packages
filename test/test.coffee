@@ -7,15 +7,16 @@ exports.NPM =
 		test.expect 1
 
 		fn = (count) ->
-			test.equals count, 0
+			isMoreThan10 = count > 10
+			test.equals isMoreThan10, true
 			test.done()
 
-		err = ->
+		err = (e) ->
 			test.ok false
 			test.done()
 
 		# username has 1 packages
-		get('demo').then fn, err
+		get('bcherny').then fn, err
 
 	error: (test) ->
 

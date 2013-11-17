@@ -8,14 +8,16 @@ exports.NPM = {
     var err, fn;
     test.expect(1);
     fn = function(count) {
-      test.equals(count, 0);
+      var isMoreThan10;
+      isMoreThan10 = count > 10;
+      test.equals(isMoreThan10, true);
       return test.done();
     };
-    err = function() {
+    err = function(e) {
       test.ok(false);
       return test.done();
     };
-    return get('demo').then(fn, err);
+    return get('bcherny').then(fn, err);
   },
   error: function(test) {
     var fn;
