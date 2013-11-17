@@ -18,12 +18,14 @@ getUrl = function(user, page) {
 };
 
 packages = function(user) {
-  var deferred, page, process, request, total;
+  var deferred, page, process, request, requests, total;
   deferred = promise.defer();
   page = -1;
   total = 0;
+  requests = 0;
   request = function() {
     var url;
+    ++requests;
     url = getUrl(user, ++page);
     return scrape.request(url, function(err, $) {
       return process(err, $);
@@ -31,11 +33,11 @@ packages = function(user) {
   };
   process = function(err, $) {
     var count, rows;
-    if (err) {
+    rows = $('#package .row');
+    count = rows.length;
+    if (err || (count === 1 && request === 1)) {
       return deferred.reject(err);
     } else {
-      rows = $('#package .row');
-      count = rows.length;
       if (count > 1) {
         total += count;
         deferred.notify(total);
@@ -48,9 +50,5 @@ packages = function(user) {
   request();
   return deferred.promise;
 };
-
-packages('dominictarr').then(function(total) {
-  return console.log(total);
-});
 
 module.exports = packages;

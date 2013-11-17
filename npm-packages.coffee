@@ -11,8 +11,11 @@ packages = (user) ->
 	deferred = promise.defer()
 	page = -1
 	total = 0
+	requests = 0
 
 	request = ->
+
+		++requests
 
 		url = getUrl user, ++page
 		scrape.request url, (err, $) ->
@@ -20,31 +23,28 @@ packages = (user) ->
 
 	process = (err, $) ->
 
-			if err
-				deferred.reject err
+		rows = $ '#package .row'
+		count = rows.length
+
+		if err or (count is 1 and request is 1)
+			deferred.reject err
+
+		else
+
+			if count > 1
+
+				total += count
+				deferred.notify total
+				request()
 
 			else
 
-				rows = $ '#package .row'
-				count = rows.length
-
-				if count > 1
-
-					total += count
-					deferred.notify total
-					request()
-
-				else
-
-					deferred.resolve total
+				deferred.resolve total
 
 	# go!
 	request()
 
 	# return
 	deferred.promise
-
-packages('dominictarr').then (total) ->
-	console.log total
 
 module.exports = packages

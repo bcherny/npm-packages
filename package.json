@@ -31,7 +31,9 @@
   "bugs": {
     "url": "https://github.com/eighttrackmind/npm-packages/issues"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodeunit": "~0.8.2"
+  },
   "dependencies": {
     "scrape": "~0.2.3",
     "when": "~2.6.0"
